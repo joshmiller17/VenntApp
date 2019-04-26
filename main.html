@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Vennt App</title>
+<style>
+	body {
+	  background-color: white;
+	}
+	h1 {
+	  color: black;
+	}
+	p {
+	  color: black;
+	}
+	.page_button{
+	   background-color: #5DADE2;
+	   width: 130px; 
+	   height: 130px; 
+	   border-radius: 25%; 
+	   float: left; 
+	   margin-right: 50px; 
+	}
+	.card_button{
+	   background-color: #cd7f32;
+	   width: 120px; 
+	   height: 200px;
+	   border-radius: 10%;
+	   float: left; 
+	   margin-right: 50px; 
+	}
+</style>
+</head>
+<body>
+
+<script type="text/javascript">
+var version = "0.1.0";
+</script>
+
+<h1>Vennt App v.
+	<script type="text/javascript">
+	document.write(version)
+	</script>
+</h1>
+
+<button id="characterButton" class="page_button" onclick="characterClick()">Character Page</button> <!-- A mode for modifying the character and Deck  -->
+<button id="battleButton"  class="page_button"  onclick="battleClick()">Battle Page</button> <!-- A mode for simulating Battles using the Deck  -->
+<button id="deckButton"  class="card_button" onclick="deckClick()">Deck</button>
+<button id="discardButton" class="card_button"  onclick="discardClick()">Discard Pile</button>
+<button id="flushButton" class="card_button" onclick="flushClick()">Flush Pile</button> <!-- Flush is like Exiling in MtG  -->
+
+<script type="text/javascript"> /* Init */
+ /* Go to the Battle page on startup */
+document.getElementById("battleButton").style.display = "none";
+document.getElementById("characterButton").style.display = "block";
+document.getElementById("deckButton").style.display = "block";
+document.getElementById("discardButton").style.display = "block";
+document.getElementById("flushButton").style.display = "block";
+ /* Init Deck, Discard, Flush */
+var deckPile = [];
+var discardPile = [];
+var flushPile = [];
+</script>
+
+<script type="text/javascript">
+function updatePiles(){
+/* TODO:
+     - whenever a button is clicked, call this function
+	 - update Deck, Discard, and Flush piles to show the count of how many cards are in each pile
+	 - Example: Deck (12), Discard (4), Flush (0) */
+	 
+	null;
+}
+
+function characterClick(){
+document.getElementById("characterButton").style.display = "none";
+document.getElementById("battleButton").style.display = "block";
+document.getElementById("deckButton").style.display = "none";
+document.getElementById("discardButton").style.display = "none";
+document.getElementById("flushButton").style.display = "none";
+}
+function battleClick(){
+document.getElementById("battleButton").style.display = "none";
+document.getElementById("characterButton").style.display = "block";
+document.getElementById("deckButton").style.display = "block";
+document.getElementById("discardButton").style.display = "block";
+document.getElementById("flushButton").style.display = "block";
+}
+
+class Path {
+	constructor(name, requirements) {
+		this.name = name;
+		this.requirements = requirements;
+	}
+
+class Card {
+	constructor(name, path, types, effect) {
+		this.name = name;
+		this.path = path;
+		this.types = types;
+		this.effect = effect;
+	}
+	
+class Character{
+	/* Eventually, will also contain Decks, or sets of Cards */
+	constructor(name, agi, dex, fort, intel, sta, spi, str, per, wis){
+		this.name = name;
+		this.agi = agi;
+		this.dex = dex;
+		this.fort = fort;
+		this.intel = intel;
+		this.sta = sta;
+		this.spi = spi;
+		this.str = str;
+		this.per = per;
+		this.wis = wis;
+	}
+}
+</script>
+
+</body>
+</html>
