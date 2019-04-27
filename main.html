@@ -215,10 +215,12 @@ class Path {
 }
 
 class Card {
-	constructor(name, path, types, effect) {
+	constructor(name, path, types, cost, power, effect) {
 		this.name = name;
 		this.path = path;
 		this.types = types;
+		this.cost = cost;
+		this.power = power;
 		this.effect = effect;
 	}
 }
