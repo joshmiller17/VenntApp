@@ -12,22 +12,40 @@
 	p {
 	  color: black;
 	}
-	.page_button{
+	
+	.button {
+		background-color: #c6dcff;
+		width: 100px;
+		height: 100px:
+		border-radius: 25%;
+		float: left;
+		margin-right: 25px;
+	}
+	
+	.page_button {
 	   background-color: #5DADE2;
 	   width: 130px; 
 	   height: 130px; 
 	   border-radius: 25%; 
-	   float: left; 
 	   margin-right: 50px; 
 	}
-	.card_button{
+	
+	.card_button {
 	   background-color: #cd7f32;
 	   width: 120px; 
 	   height: 200px;
 	   border-radius: 10%;
-	   float: left; 
 	   margin-right: 50px; 
 	}
+	
+	.stat_button {
+		width: 25px;
+		height: 25px:
+		border-radius: 10%;
+		float: left;
+		margin-right: 10px;
+	}
+	
 </style>
 </head>
 <body>
@@ -42,24 +60,41 @@ var version = "0.1.0";
 	</script>
 </h1>
 
-<button id="characterButton" class="page_button" onclick="characterClick()">Character Page</button> <!-- A mode for modifying the character and Deck  -->
-<button id="battleButton"  class="page_button"  onclick="battleClick()">Battle Page</button> <!-- A mode for simulating Battles using the Deck  -->
-<button id="deckButton"  class="card_button" onclick="deckClick()">Deck</button>
-<button id="discardButton" class="card_button"  onclick="discardClick()">Discard Pile</button>
-<button id="flushButton" class="card_button" onclick="flushClick()">Flush Pile</button> <!-- Flush is like Exiling in MtG  -->
+<button id="characterButton" class="button page_button" onclick="characterClick()">Character Page</button> <!-- A mode for modifying the character and Deck  -->
+<button id="battleButton"  class="button page_button"  onclick="battleClick()">Battle Page</button> <!-- A mode for simulating Battles using the Deck  -->
+<button id="deckButton"  class="button card_button" onclick="deckClick()">Deck</button>
+<button id="discardButton" class="button card_button"  onclick="discardClick()">Discard Pile</button>
+<button id="flushButton" class="button card_button" onclick="flushClick()">Flush Pile</button> <!-- Flush is like Exiling in MtG  -->
 
-<script type="text/javascript"> /* Init */
- /* Go to the Battle page on startup */
-document.getElementById("battleButton").style.display = "none";
-document.getElementById("characterButton").style.display = "block";
-document.getElementById("deckButton").style.display = "block";
-document.getElementById("discardButton").style.display = "block";
-document.getElementById("flushButton").style.display = "block";
- /* Init Deck, Discard, Flush */
-var deckPile = [];
-var discardPile = [];
-var flushPile = [];
-</script>
+<!-- Stat increment/decrementers -->
+<button id="agiDown" class="button stat_button" onclick="statMod('agi', -1)">-</button> 
+<button id="agiUp" class="button stat_button" onclick="statMod('agi', 1)">+</button> 
+<p id= "agiStat" class="attr"> AGI: 0</p>
+<button id="dexDown" class="button stat_button" onclick="statMod('dex', -1)">-</button> 
+<button id="dexUp" class="button stat_button" onclick="statMod('dex', 1)">+</button> 
+<p id= "dexStat" class="attr"> DEX: 0</p>
+<button id="forDown" class="button stat_button" onclick="statMod('for', -1)">-</button> 
+<button id="forUp" class="button stat_button" onclick="statMod('for', 1)">+</button> 
+<p id= "forStat" class="attr"> FOR: 0</p>
+<button id="intDown" class="button stat_button" onclick="statMod('int', -1)">-</button> 
+<button id="intUp" class="button stat_button" onclick="statMod('int', 1)">+</button> 
+<p id= "intStat" class="attr"> INT: 0</p>
+<button id="perDown" class="button stat_button" onclick="statMod('per', -1)">-</button> 
+<button id="perUp" class="button stat_button" onclick="statMod('per', 1)">+</button> 
+<p id= "perStat" class="attr"> PER: 0</p>
+<button id="spiDown" class="button stat_button" onclick="statMod('spi', -1)">-</button> 
+<button id="spiUp" class="button stat_button" onclick="statMod('spi', 1)">+</button> 
+<p id= "spiStat" class="attr"> SPI: 0</p>
+<button id="staDown" class="button stat_button" onclick="statMod('sta', -1)">-</button> 
+<button id="staUp" class="button stat_button" onclick="statMod('sta', 1)">+</button> 
+<p id= "staStat" class="attr"> STA: 0</p>
+<button id="strDown" class="button stat_button" onclick="statMod('str', -1)">-</button> 
+<button id="strUp" class="button stat_button" onclick="statMod('str', 1)">+</button> 
+<p id= "strStat" class="attr"> STR: 0</p>
+<button id="wisDown" class="button stat_button" onclick="statMod('wis', -1)">-</button> 
+<button id="wisUp" class="button stat_button" onclick="statMod('wis', 1)">+</button> 
+<p id= "wisStat" class="attr"> WIS: 0</p>
+
 
 <script type="text/javascript">
 function updatePiles(){
@@ -71,19 +106,34 @@ function updatePiles(){
 	null;
 }
 
-function characterClick(){
+function characterClick(){ /*Load character page*/
 document.getElementById("characterButton").style.display = "none";
 document.getElementById("battleButton").style.display = "block";
 document.getElementById("deckButton").style.display = "none";
 document.getElementById("discardButton").style.display = "none";
 document.getElementById("flushButton").style.display = "none";
+toggle_visibility_by_class("stat_button", "block");
+toggle_visibility_by_class("attr", "block");
 }
-function battleClick(){
+
+
+function battleClick(){  /*Load battle page*/
 document.getElementById("battleButton").style.display = "none";
 document.getElementById("characterButton").style.display = "block";
 document.getElementById("deckButton").style.display = "block";
 document.getElementById("discardButton").style.display = "block";
 document.getElementById("flushButton").style.display = "block";
+toggle_visibility_by_class("stat_button", "none");
+toggle_visibility_by_class("attr", "none");
+}
+
+
+
+function toggle_visibility_by_class(cl, state){ /* state is usually none or block */
+ var divs = document.getElementsByClassName(cl);
+    for(var i = 0; i < divs.length; i++){
+        divs[i].style.display = state;
+    }
 }
 
 function deckClick(){
@@ -99,6 +149,13 @@ function discardClick(){
 function flushClick(){
 /* TODO */
 	null;
+}
+
+function statMod(param, delta){
+  /* TODO */
+	character.stats[param] += delta; 
+	eleName = param + "Stat"
+	document.getElementById(eleName).innerHTML = param.toUpperCase() + ": " + character.stats[param]
 }
 
 class Path {
@@ -119,19 +176,29 @@ class Card {
 	
 class Character{
 	/* Eventually, will also contain Decks, or sets of Cards */
-	constructor(name, agi, dex, fort, intel, sta, spi, str, per, wis){
+	constructor(name){
 		this.name = name;
-		this.agi = agi;
-		this.dex = dex;
-		this.fort = fort;
-		this.intel = intel;
-		this.sta = sta;
-		this.spi = spi;
-		this.str = str;
-		this.per = per;
-		this.wis = wis;
+		this.stats = {};
+		this.stats["agi"] = 0;
+		this.stats["dex"] = 0;
+		this.stats["for"] = 0;
+		this.stats["int"] = 0;
+		this.stats["per"] = 0;
+		this.stats["spi"] = 0;
+		this.stats["sta"] = 0;
+		this.stats["str"] = 0;
+		this.stats["wis"] = 0;
 	}
 }
+
+/* INIT */
+ /* Go to the Battle page on startup */
+characterClick()
+ /* Init Deck, Discard, Flush */
+var deckPile = [];
+var discardPile = [];
+var flushPile = [];
+var character = new Character("New Character", 0,0,0,0,0,0,0,0,0);
 </script>
 
 </body>
