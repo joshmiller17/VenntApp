@@ -20,6 +20,9 @@
 		border-radius: 25%;
 		float: left;
 		margin-right: 25px;
+		font-family: "Raleway", "Garamond";
+		font-size: 20px;
+		font-weight: bold;
 	}
 	
 	.page_button {
@@ -30,12 +33,38 @@
 	   margin-right: 50px; 
 	}
 	
-	.card_button {
+	.pile {
 	   background-color: #cd7f32;
 	   width: 120px; 
 	   height: 200px;
 	   border-radius: 10%;
 	   margin-right: 50px; 
+	}
+	
+	.held {
+	   background-color: #efd832;
+	   display: flex;
+	   width: 600px;
+	   height: 200px;
+	   border-radius: 10%;
+	   margin-right: 50px; 
+	   style.opacity = "0.01";
+	}
+	
+	.card_button{
+	   background-color: #efd8c2;
+	   width: 120px; 
+	   height: 200px;
+	   border-radius: 10%;
+	   margin-right: 50px; 
+	}
+	
+	.font {
+	font-family: "Raleway", "Garamond";
+	}
+	
+	.attr {
+	font-family: "Raleway", "Garamond";
 	}
 	
 	.stat_button {
@@ -54,7 +83,7 @@
 var version = "0.1.0";
 </script>
 
-<h1>Vennt App v.
+<h1 class="font">Vennt App v.
 	<script type="text/javascript">
 	document.write(version)
 	</script>
@@ -62,9 +91,12 @@ var version = "0.1.0";
 
 <button id="characterButton" class="button page_button" onclick="characterClick()">Character Page</button> <!-- A mode for modifying the character and Deck  -->
 <button id="battleButton"  class="button page_button"  onclick="battleClick()">Battle Page</button> <!-- A mode for simulating Battles using the Deck  -->
-<button id="deckButton"  class="button card_button" onclick="deckClick()">Deck</button>
-<button id="discardButton" class="button card_button"  onclick="discardClick()">Discard Pile</button>
-<button id="flushButton" class="button card_button" onclick="flushClick()">Flush Pile</button> <!-- Flush is like Exiling in MtG  -->
+<button id="deckButton"  class="button pile" onclick="deckClick()">Deck</button>
+<button id="discardButton" class="button pile"  onclick="discardClick()">Discard Pile</button>
+<button id="flushButton" class="button pile" onclick="flushClick()">Flush Pile</button> <!-- Flush is like Exiling in MtG  -->
+
+<div id="hand" class="held">
+</div>
 
 <!-- Stat increment/decrementers -->
 <button id="agiDown" class="button stat_button" onclick="statMod('agi', -1)">-</button> 
@@ -96,6 +128,10 @@ var version = "0.1.0";
 <p id= "wisStat" class="attr"> WIS: 0</p>
 
 
+
+
+
+
 <script type="text/javascript">
 function updatePiles(){
 /* TODO:
@@ -114,6 +150,7 @@ document.getElementById("discardButton").style.display = "none";
 document.getElementById("flushButton").style.display = "none";
 toggle_visibility_by_class("stat_button", "block");
 toggle_visibility_by_class("attr", "block");
+toggle_visibility_by_class("held", "none");
 }
 
 
@@ -125,6 +162,8 @@ document.getElementById("discardButton").style.display = "block";
 document.getElementById("flushButton").style.display = "block";
 toggle_visibility_by_class("stat_button", "none");
 toggle_visibility_by_class("attr", "none");
+toggle_visibility_by_class("held", "inline-block");
+character.currentDeck = character.deck; /* Reset deck, will eventually want to change this logic */
 }
 
 
@@ -138,7 +177,19 @@ function toggle_visibility_by_class(cl, state){ /* state is usually none or bloc
 
 function deckClick(){
 /* TODO */
-	null;
+	if (character.currentDeck.length > 0) {
+		card = character.currentDeck.pop();
+		var button = document.createElement("button");
+		button.classList.add("button");
+		button.classList.add("card_button");
+		button.onclick = "";
+		button.innerHTML = card.name;
+		button.style.display = "block";
+		hand = document.getElementById("hand");
+		hand.appendChild(button);
+		console.log(button);
+		console.log(hand);
+	}
 }
 
 function discardClick(){
@@ -188,17 +239,25 @@ class Character{
 		this.stats["sta"] = 0;
 		this.stats["str"] = 0;
 		this.stats["wis"] = 0;
+		this.deck = []
+		this.currentDeck = []
+		this.discard = []
+		this.flush = []
 	}
 }
 
 /* INIT */
- /* Go to the Battle page on startup */
-characterClick()
  /* Init Deck, Discard, Flush */
 var deckPile = [];
 var discardPile = [];
 var flushPile = [];
 var character = new Character("New Character", 0,0,0,0,0,0,0,0,0);
+/* populate testing deck */
+character.deck.push(new Card("Test Card A", "Beginner", ["Basic", "Melee"], "This card does A"));
+character.deck.push(new Card("Test Card B", "Red", ["Vigor", "Ranged"], "This card does B"));
+character.deck.push(new Card("Test Card C", "Blue", ["Mental"], "This card does C"));
+ /* Go to the Battle page on startup */
+battleClick()
 </script>
 
 </body>
