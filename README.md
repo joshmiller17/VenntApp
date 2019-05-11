@@ -22,15 +22,15 @@ Now you're ready to interact with the code! Open up the files using your favorit
 
 
 ### General Workflow
-Typically, the way you want to contribute code is:
-0. Check the issues page to see what others suggest for features: https://github.com/joshmiller17/VenntApp/issues
-1. Make sure you have the latest updates: `git pull`
-2. Move to a new branch to work on feature X: `git checkout -b featureX`
-3. Make changes to the code
+Typically, the way you want to contribute code is:  
+1. Check the issues page to see what others suggest for features: https://github.com/joshmiller17/VenntApp/issues
+2. Make sure you have the latest updates: `git pull`
+3. Move to a new branch to work on feature X: `git checkout -b featureX`
+4. Make changes to the code
     1. Add your changes to a commit: `git add <file>`
     2. Commit these changes: `git commit`
-4. Push these changes `git push`
+5. Push these changes `git push`
     1. Git will probably ask you to set the remote origin. This could be something like: `git branch --set-upstream featureX` or `git push -u origin featureX`
-5. Go to https://github.com/joshmiller17/VenntApp/compare and create a Pull Request (PR) to request your branch be merged with the master branch, so that others can review your changes and we can collaboratively decide what changes get added
+6. Go to https://github.com/joshmiller17/VenntApp/compare and create a Pull Request (PR) to request your branch be merged with the master branch, so that others can review your changes and we can collaboratively decide what changes get added
 
 
