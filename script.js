@@ -118,6 +118,7 @@ function discardClick(){
 	while (discardPile.length > 0) {
 		deckPile.push(discardPile.pop())
 	}
+	shuffle(deckPile);
 	updatePiles();
 }
 
@@ -127,6 +128,7 @@ function flushClick(){
 	while (discardPile.length > 0) {
 		deckPile.push(discardPile.pop())
 	}
+	shuffle(deckPile);
 	updatePiles();
 }
 
