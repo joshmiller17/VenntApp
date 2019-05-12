@@ -2,7 +2,13 @@ var debug = true;
 
 function updatePiles(){
 	deck = document.getElementById("deckButton"); 
-    deck.innerHTML = `Deck (${character.deck.length})`;
+    deck.innerHTML = `Deck (${deckPile.length})`;
+	
+	flush = document.getElementById("flushButton"); 
+    flush.innerHTML = `Flush (${flushPile.length})`;
+	
+	discard = document.getElementById("discardButton");
+	discard.innerHTML = `Discard (${discardPile.length})`;
 }
 
 function characterClick(){ /*Load character page*/
@@ -72,11 +78,15 @@ function deckClick(){
 function discardClick(){
 /* TODO */
 	null;
+		
+	updatePiles();
 }
 
 function flushClick(){
 /* TODO */
 	null;
+	
+	updatePiles();
 }
 
 function statMod(param, delta){
