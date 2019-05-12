@@ -1,4 +1,6 @@
 var debug = true;
+var cards = {}; //map of id : Card
+var idCounter = 0;
 
 /**
  * Randomly shuffle an array
@@ -7,23 +9,24 @@ var debug = true;
  * @return {String}      The first item in the shuffled array
  */
 function shuffle(array) {
-
 	var currentIndex = array.length;
 	var temporaryValue, randomIndex;
-
 	// While there remain elements to shuffle...
 	while (0 !== currentIndex) {
 		// Pick a remaining element...
 		randomIndex = Math.floor(Math.random() * currentIndex);
 		currentIndex -= 1;
-
 		// And swap it with the current element.
 		temporaryValue = array[currentIndex];
 		array[currentIndex] = array[randomIndex];
 		array[randomIndex] = temporaryValue;
 	}
-
 	return array;
+}
+
+function generateId(){
+	idCounter += 1;
+	return idCounter;
 }
 
 function updatePiles(){
@@ -69,11 +72,13 @@ function toggle_visibility_by_class(cl, state){ /* state is usually none or bloc
     }
 }
 
-function drawCard(card){
+function drawCard(id){
 		var button = document.createElement("button");
 		button.classList.add("button");
 		button.classList.add("card_button");
-		button.onclick = "";
+		button.onclick = discardCard;
+		button.id = id;
+		card = cards[id];
 		/* FIXME security issue with setting the HTML directly from the cards.
 		Need to sanitize inputs here. */
 		//TODO remove debug border
@@ -91,24 +96,33 @@ function drawCard(card){
 		hand.appendChild(button);
 }
 
+function discardCard(clickEvent){
+	cardButton = clickEvent.currentTarget;
+	id = cardButton.id;
+	hand.removeChild(cardButton);
+	discardPile.push(id);
+	updatePiles();
+}
+
 function deckClick(){
-/* TODO */
-	if (character.currentDeck.length > 0) {
-		card = character.currentDeck.pop();
-		drawCard(card);
+	if (deckPile.length > 0) {
+		id = deckPile.pop();
+		drawCard(id);
 	}
 	updatePiles();
 }
 
 function discardClick(){
-/* TODO */
-	null;
-		
+	/* TODO */
+	//for now, just move discard to Deck
+	while (discardPile.length > 0) {
+		deckPile.push(discardPile.pop())
+	}
 	updatePiles();
 }
 
 function flushClick(){
-/* TODO */
+	/* TODO */
 	null;
 	
 	updatePiles();
@@ -162,16 +176,21 @@ class Character{
 
 /* INIT */
  /* Init Deck, Discard, Flush */
-var deckPile = [];
-var discardPile = [];
-var flushPile = [];
+var deckPile = []; //stores as ids, see the cards map
+var discardPile = [];  //stores as ids, see the cards map
+var flushPile = [];  //stores as ids, see the cards map
 var character = new Character("New Character", 0,0,0,0,0,0,0,0,0);
 /* populate testing deck */
 character.deck.push(new Card("Test Card A", "Beginner", ["Basic", "Melee"], 0, 1, "This card does A"));
 character.deck.push(new Card("Test Card B", "Red", ["Vigor", "Ranged"], 1, 1, "This card does B"));
 character.deck.push(new Card("Test Card C", "Blue", ["Mental"], 1, 2, "This card does C"));
+character.currentDeck = character.deck;
 /* Go to the Battle page on startup */
-deckPile = character.deck;
+for (card in character.deck) {
+	id = generateId();
+	cards[id] = character.currentDeck[card];
+	deckPile.push(id);
+}
 shuffle(deckPile);
 battleClick();
 updatePiles();
