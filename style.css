@@ -1,0 +1,71 @@
+body {
+	  background-color: white;
+	}
+	h1 {
+	  color: black;
+	}
+	p {
+	  color: black;
+	}
+	
+	.button {
+		background-color: #c6dcff;
+		width: 100px;
+		height: 100px:
+		border-radius: 25%;
+		float: left;
+		margin-right: 25px;
+		font-family: "Raleway", "Garamond";
+		font-size: 20px;
+		font-weight: bold;
+	}
+	
+	.page_button {
+	   background-color: #5DADE2;
+	   width: 130px; 
+	   height: 130px; 
+	   border-radius: 25%; 
+	   margin-right: 50px; 
+	}
+	
+	.pile {
+	   background-color: #cd7f32;
+	   width: 120px; 
+	   height: 200px;
+	   border-radius: 10%;
+	   margin-right: 50px; 
+	}
+	
+	.held {
+	   background-color: #efd832;
+	   display: flex;
+	   width: 600px;
+	   height: 200px;
+	   border-radius: 10%;
+	   margin-right: 50px; 
+	   style.opacity = "0.01";
+	}
+	
+	.card_button{
+	   background-color: #efd8c2;
+	   width: 120px; 
+	   height: 200px;
+	   border-radius: 10%;
+	   margin-right: 50px; 
+	}
+	
+	.font {
+	font-family: "Raleway", "Garamond";
+	}
+	
+	.attr {
+	font-family: "Raleway", "Garamond";
+	}
+	
+	.stat_button {
+		width: 25px;
+		height: 25px:
+		border-radius: 10%;
+		float: left;
+		margin-right: 10px;
+	}
