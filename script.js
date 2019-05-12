@@ -123,8 +123,10 @@ function discardClick(){
 
 function flushClick(){
 	/* TODO */
-	null;
-	
+	//for now, just move discard to Deck
+	while (discardPile.length > 0) {
+		deckPile.push(discardPile.pop())
+	}
 	updatePiles();
 }
 
@@ -181,7 +183,7 @@ var discardPile = [];  //stores as ids, see the cards map
 var flushPile = [];  //stores as ids, see the cards map
 var character = new Character("New Character", 0,0,0,0,0,0,0,0,0);
 /* populate testing deck */
-character.deck.push(new Card("Test Card A", "Beginner", ["Basic", "Melee"], 0, 1, "This card does A"));
+character.deck.push(new Card("Test Card A", "Beginner", ["Basic", "Melee"], 0, 1, "This card does A, and it's very long and the text goes on forever and I'm just trying to see how long the text can go."));
 character.deck.push(new Card("Test Card B", "Red", ["Vigor", "Ranged"], 1, 1, "This card does B"));
 character.deck.push(new Card("Test Card C", "Blue", ["Mental"], 1, 2, "This card does C"));
 character.currentDeck = character.deck;
