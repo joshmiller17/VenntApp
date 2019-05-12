@@ -1,3 +1,5 @@
+var debug = true;
+
 function updatePiles(){
 /* TODO:
      - whenever a button is clicked, call this function
@@ -40,18 +42,33 @@ function toggle_visibility_by_class(cl, state){ /* state is usually none or bloc
     }
 }
 
-function deckClick(){
-/* TODO */
-	if (character.currentDeck.length > 0) {
-		card = character.currentDeck.pop();
+function drawCard(card){
 		var button = document.createElement("button");
 		button.classList.add("button");
 		button.classList.add("card_button");
 		button.onclick = "";
-		button.innerHTML = card.name;
+		/* FIXME security issue with setting the HTML directly from the cards.
+		Need to sanitize inputs here. */
+		//TODO remove debug border
+		cardText = `<div style="vertical-align:top;text-align:left;
+					font-weight:bold;font-size:12px;border-style:solid">
+		<b>${card.name} (${card.cost}/${card.power})</b>
+		<br>
+		${card.types}
+		<br><br>
+		${card.effect}
+		</div>`;
+		button.innerHTML = cardText;
 		button.style.display = "block";
 		hand = document.getElementById("hand");
 		hand.appendChild(button);
+}
+
+function deckClick(){
+/* TODO */
+	if (character.currentDeck.length > 0) {
+		card = character.currentDeck.pop();
+		drawCard(card);
 	}
 }
 
@@ -118,8 +135,8 @@ var discardPile = [];
 var flushPile = [];
 var character = new Character("New Character", 0,0,0,0,0,0,0,0,0);
 /* populate testing deck */
-character.deck.push(new Card("Test Card A", "Beginner", ["Basic", "Melee"], "This card does A"));
-character.deck.push(new Card("Test Card B", "Red", ["Vigor", "Ranged"], "This card does B"));
-character.deck.push(new Card("Test Card C", "Blue", ["Mental"], "This card does C"));
+character.deck.push(new Card("Test Card A", "Beginner", ["Basic", "Melee"], 0, 1, "This card does A"));
+character.deck.push(new Card("Test Card B", "Red", ["Vigor", "Ranged"], 1, 1, "This card does B"));
+character.deck.push(new Card("Test Card C", "Blue", ["Mental"], 1, 2, "This card does C"));
  /* Go to the Battle page on startup */
 battleClick()
