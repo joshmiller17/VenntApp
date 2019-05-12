@@ -1,12 +1,8 @@
 var debug = true;
 
 function updatePiles(){
-/* TODO:
-     - whenever a button is clicked, call this function
-	 - update Deck, Discard, and Flush piles to show the count of how many cards are in each pile
-	 - Example: Deck (12), Discard (4), Flush (0) */
-	 
-	null;
+	deck = document.getElementById("deckButton"); 
+    deck.innerHTML = `Deck (${character.deck.length})`;
 }
 
 function characterClick(){ /*Load character page*/
@@ -70,6 +66,7 @@ function deckClick(){
 		card = character.currentDeck.pop();
 		drawCard(card);
 	}
+	updatePiles();
 }
 
 function discardClick(){
@@ -138,5 +135,7 @@ var character = new Character("New Character", 0,0,0,0,0,0,0,0,0);
 character.deck.push(new Card("Test Card A", "Beginner", ["Basic", "Melee"], 0, 1, "This card does A"));
 character.deck.push(new Card("Test Card B", "Red", ["Vigor", "Ranged"], 1, 1, "This card does B"));
 character.deck.push(new Card("Test Card C", "Blue", ["Mental"], 1, 2, "This card does C"));
- /* Go to the Battle page on startup */
-battleClick()
+/* Go to the Battle page on startup */
+deckPile = character.deck;
+battleClick();
+updatePiles();
