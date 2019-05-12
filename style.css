@@ -11,12 +11,25 @@ body {
 	.button {
 		background-color: #c6dcff;
 		width: 100px;
-		height: 100px:
+		height: 25px;
 		border-radius: 25%;
 		float: left;
 		margin-right: 25px;
 		font-family: "Raleway", "Garamond";
 		font-size: 20px;
+		font-weight: bold;
+	}
+	
+	.hp {
+		border-radius: 30%;
+		background-color: red;
+		color: white;
+		width: 100px;
+		height: 100px;
+		float: left;
+		margin-right: 25px;
+		font-family: "Raleway", "Garamond";
+		font-size: 45px;
 		font-weight: bold;
 	}
 	

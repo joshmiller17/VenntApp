@@ -47,8 +47,10 @@ document.getElementById("deckButton").style.display = "none";
 document.getElementById("discardButton").style.display = "none";
 document.getElementById("flushButton").style.display = "none";
 toggle_visibility_by_class("stat_button", "block");
+document.getElementById("hpreset").style.display = "none";
 toggle_visibility_by_class("attr", "block");
 toggle_visibility_by_class("held", "none");
+toggle_visibility_by_class("hp", "none");
 }
 
 
@@ -58,9 +60,11 @@ document.getElementById("characterButton").style.display = "block";
 document.getElementById("deckButton").style.display = "block";
 document.getElementById("discardButton").style.display = "block";
 document.getElementById("flushButton").style.display = "block";
+document.getElementById("hpreset").style.display = "block";
 toggle_visibility_by_class("stat_button", "none");
 toggle_visibility_by_class("attr", "none");
 toggle_visibility_by_class("held", "inline-block");
+toggle_visibility_by_class("hp", "inline-block");
 character.currentDeck = character.deck; /* Reset deck, will eventually want to change this logic */
 }
 
@@ -81,7 +85,7 @@ function drawCard(id){
 		card = cards[id];
 		/* FIXME security issue with setting the HTML directly from the cards.
 		Need to sanitize inputs here. */
-		//TODO remove debug border
+		//TODO remove debug border once the formatting looks good
 		cardText = `<div style="display:block;vertical-align:top;text-align:left;
 					font-weight:bold;font-size:12px;border-style:solid">
 		<b>${card.name} (${card.cost}/${card.power})</b>
@@ -103,6 +107,47 @@ function discardCard(clickEvent){
 	discardPile.push(id);
 	updatePiles();
 }
+
+function healthUp(d){
+	die = d - 1;
+	if (health[die] > 0 && health[die] < 6) {
+		health[die] += 1;
+	}
+	
+	updateHealth();
+	return false; //don't show context menu
+}
+
+function healthDown(d){
+	die = d - 1;
+	if (health[die] > 0) {
+		health[die] -= 1;
+	}
+	updateHealth();
+	return false; //don't show context menu
+}
+
+function healthReset(){
+	health = [6,6,6];
+	updateHealth();
+}
+
+function updateHealth() {
+	for (i=1; i<4; i++){
+		id = "hp" + i.toString();
+		button = document.getElementById(id);
+		button.innerHTML = health[i-1];
+		if (health[i-1] < 1){
+			button.style.backgroundColor = "black";
+			button.style.color = "black";
+		}
+		else {
+			button.style.backgroundColor = "red";
+			button.style.color = "white";
+		}
+	}
+}
+
 
 function deckClick(){
 	if (deckPile.length > 0) {
@@ -180,6 +225,7 @@ class Character{
 
 /* INIT */
  /* Init Deck, Discard, Flush */
+var health = [6,6,6];
 var deckPile = []; //stores as ids, see the cards map
 var discardPile = [];  //stores as ids, see the cards map
 var flushPile = [];  //stores as ids, see the cards map
