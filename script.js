@@ -1,5 +1,6 @@
 var debug = true;
 var cards = {}; //map of id : Card
+var ALL_CARDS = []
 var idCounter = 0;
 
 /**
@@ -184,6 +185,23 @@ function statMod(param, delta){
 	document.getElementById(eleName).innerHTML = param.toUpperCase() + ": " + character.stats[param]
 }
 
+function loadCards(cardfile){
+	
+	return null;
+	// TODO
+	
+		// lines = data.split('\n');
+		// var path = "";
+		// for (var i=0; i < lines.length; i++){
+			// if (lines[i].startsWith("Path - ")) {
+				// path = lines[i].substring(7);
+				// console.log("Path: " + path) //TODO delete
+			// }
+			// // TODO add logic to read in cards
+		// }
+	// });
+}
+
 class Path {
 	constructor(name, requirements) {
 		this.name = name;
@@ -243,4 +261,5 @@ for (card in character.deck) {
 }
 shuffle(deckPile);
 battleClick();
+loadCards("cards.txt");
 updatePiles();
